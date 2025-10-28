@@ -3553,5 +3553,92 @@ func createAndUseChannel() {
 
 **核心要点**：在 Go 中，一个变量是分配在堆上还是栈上，**与它是值类型还是引用类型无关，也与它是否由 `new` 或 `make` 创建无关**，唯一的决定因素就是**编译器的逃逸分析结果**。
 
+## 32、value context 怎么进行存储的
 
+---
+
+### `context.WithValue` 的实现核心：`valueCtx`
+
+当我们调用 `context.WithValue(parent, key, val)` 时，Go 语言并不会修改传入的 `parent` context，而是创建一个新的 `context` 实例。这个新实例的类型是内部的 `valueCtx` 结构体。
+
+`valueCtx` 的结构非常简单，在 Go 源码 `src/context/context.go` 中定义如下：
+
+```go
+// A valueCtx carries a key-value pair. It implements Value for that key and
+// delegates all other calls to the embedded Context.
+type valueCtx struct {
+	Context // 内嵌了父 Context
+	key, val any
+}
+```
+
+从这个结构定义中我们可以看到两个关键点：
+
+1.  **内嵌父 `Context`**: `valueCtx` 通过内嵌（embedding）的方式持有了它的父 `Context`。这意味着 `valueCtx` 自动继承了其父 `Context` 的所有方法（如 `Deadline`, `Done`, `Err`, `Value`）。
+2.  **存储键值对**: 它额外包含了两个字段 `key` 和 `val`，用于存储一个键值对。
+
+### 值是如何存储的：构建一个链表（树状结构）
+
+每次调用 `context.WithValue` 都会创建一个新的 `valueCtx` 对象，并将当前的 `Context` 作为其内嵌的父 `Context`。这个过程会形成一个**单向链表**结构。
+
+我们可以将这个链表想象成一棵从子节点指向父节点的树：
+
+```
+ctx_c := context.WithValue(ctx_b, keyC, valC)
+  |
+  +--> ctx_b (valueCtx)
+         |  - key: keyB, val: valB
+         |  - Context: ctx_a
+         |
+         +--> ctx_a (valueCtx)
+                |  - key: keyA, val: valA
+                |  - Context: context.Background()
+                |
+                +--> context.Background() (emptyCtx)
+```
+
+在这个例子中：
+*   `ctx_c` 是一个 `valueCtx`，它存储了 `keyC` 和 `valC`，并内嵌了 `ctx_b`。
+*   `ctx_b` 也是一个 `valueCtx`，它存储了 `keyB` 和 `valB`，并内嵌了 `ctx_a`。
+*   这个链表的最终源头通常是 `context.Background()` 或 `context.TODO()`，它们是空的 `Context` 实现 (`emptyCtx`)。
+
+所以，**值并不是存储在一个集中的 `map` 或其他数据结构中**。相反，每个值都与创建它的那个 `valueCtx` 节点绑定，这些节点通过内嵌的 `Context` 字段链接起来，形成了一条从当前 `Context` 回溯到根 `Context` 的路径。
+
+### 如何获取任意父节点的值：`Value()` 方法的递归查找
+
+现在到了最关键的部分：当我们在一个 `Context`（例如上面例子中的 `ctx_c`）上调用 `Value(key)` 方法时，它是如何找到可能存储在 `ctx_a` 或 `ctx_b` 中的值的呢？
+
+这得益于 `valueCtx` 对 `Value` 方法的实现。我们来看一下它的源码：
+
+```go
+func (c *valueCtx) Value(key any) any {
+	// 1. 检查当前节点的 key 是否匹配
+	if c.key == key {
+		return c.val
+	}
+	// 2. 如果不匹配，则递归地调用父 Context 的 Value 方法
+	return c.Context.Value(key)
+}
+```
+
+这个方法的逻辑非常清晰：
+
+1.  **检查当前节点**：它首先检查传递进来的 `key` 是否与当前 `valueCtx` 节点自身存储的 `key` 相匹配。如果匹配，就直接返回存储的 `val`。
+
+2.  **向上递归查找**：如果当前节点的 `key` 不匹配，它不会停止查找。而是通过 `c.Context.Value(key)` 调用其**内嵌的父 `Context`** 的 `Value` 方法。
+
+这个过程会沿着 `valueCtx` 链表一直向上回溯：
+*   在 `ctx_c` 上调用 `Value(keyA)`。
+*   `ctx_c` 的 `key` (`keyC`) 不匹配 `keyA`，于是调用 `ctx_b.Value(keyA)`。
+*   `ctx_b` 的 `key` (`keyB`) 不匹配 `keyA`，于是调用 `ctx_a.Value(keyA)`。
+*   `ctx_a` 的 `key` (`keyA`) 匹配了！返回 `valA`。
+*   如果一直找到根节点（`context.Background()`）都没有找到，最终会返回 `nil`。
+
+### 总结
+
+1.  **存储机制**：`context.WithValue` 通过创建一个 `valueCtx` 结构体来存储键值对。这个结构体通过内嵌父 `Context` 的方式，将多个 `valueCtx` 串联成一个**单向链表**，从而构成了 `Context` 的树状结构。每个节点只存储一个键值对。
+
+2.  **获取机制**：`valueCtx` 的 `Value(key)` 方法实现了一个**递归的向上查找**逻辑。它首先检查自身的 `key` 是否匹配，如果不匹配，则委托其父 `Context` 进行查找。这个过程会沿着链表一直上溯，直到找到匹配的键或者到达树的根节点。
+
+这种设计巧妙地实现了 `Context` 的不可变性（每次都是创建新对象），同时通过类似链表的结构和递归查找，高效地实现了在整个 `Context` 树中（从当前节点向上）获取任意父节点设置的值。
 

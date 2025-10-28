@@ -1,6 +1,6 @@
-## golang
+# golang
 
-### 常见问题
+## 常见问题
 
 1. [`golang` 中 `make` 和 `new` 的区别？](golang/golang.md#1golang-中-make-和-new-的区别)
 2. [数组和切片的区别](golang/golang.md#2数组和切片的区别)
@@ -33,10 +33,11 @@
 29. [`golang` `gc`怎么实现的](golang/golang.md#29golang-gc怎么实现的)
 30. [`golang` 中 `GC` 中 `stw` 时机，各个阶段是如何解决的？](golang/golang.md#30golang-中-GC-中-stw-时机各个阶段是如何解决的)
 31. [`Channel` 分配在栈上还是堆上？哪些对象分配在堆上，哪些对象分配在栈上？](golang/golang.md#31Channel-分配在栈上还是堆上哪些对象分配在堆上哪些对象分配在栈上)
+32. [`value context` 怎么进行存储的](golang/golang.md#32value-context-怎么进行存储的)
 
 # 数据库
 
-# 常见问题
+## 常见问题
 
 1. [InnoDB引擎索引的数据结构](db/db.md#1InnoDB引擎索引的数据结构)
 2. [什么是回表](db/db.md#2什么是回表)
@@ -99,6 +100,50 @@
 59. [utf8和utf8mb4区别](db/db.md#59utf8和utf8mb4区别)
 60. [Mysql一条SQL加锁分析](db/db.md#60Mysql一条SQL加锁分析)
 
+# 计算机网络
 
+## 常见问题
+
+1. [计算机网络的各层协议及作用](computer-network/computer-network.md#1计算机网络的各层协议及作用)
+2. [URI和URL的区别](computer-network/computer-network.md#2URI和URL的区别)
+3. [DNS的工作流程](computer-network/computer-network.md#3DNS的工作流程)
+4. [http DNS的作用，什么是 http DNS？](computer-network/computer-network.md#4http-DNS的作用什么是-http-DNS)
+5. [DNS是集群式的工作方式还是单点式的，为什么？](computer-network/computer-network.md#5DNS是集群式的工作方式还是单点式的为什么)
+6. [IP 地址和 MAC 地址是什么](computer-network/computer-network.md#6IP-地址和-MAC-地址是什么)
+7. [什么是ARP协议](computer-network/computer-network.md#7什么是ARP协议)
+8. [有了IP地址，为什么还要用MAC地址？](computer-network/computer-network.md#8有了IP地址为什么还要用MAC地址)
+9. [说一下ping的过程](computer-network/computer-network.md#9说一下ping的过程)
+10. [路由器和交换机的区别？](computer-network/computer-network.md#10路由器和交换机的区别)
+11. [TCP与UDP有什么区别](computer-network/computer-network.md#11TCP与UDP有什么区别)
+12. [为什么 http 3.0使用的是UDP](computer-network/computer-network.md#12为什么-http-30使用的是UDP)
+13. [http 1.1可以进行流式传输吗](computer-network/computer-network.md#13http-11可以进行流式传输吗)
+14. [什么是 websocket](computer-network/computer-network.md#14什么是-websocket)
+15. [什么是 sse](computer-network/computer-network.md#15什么是-sse)
+16. [http 2.0 优化了什么](computer-network/computer-network.md#16http-20-优化了什么)
+17. [TCP协议如何保证可靠传输](computer-network/computer-network.md#17TCP协议如何保证可靠传输)
+18. [UDP协议如何保证可靠传输](computer-network/computer-network.md#18UDP协议如何保证可靠传输)
+19. [TCP的三次握手及四次挥手](computer-network/computer-network.md#19TCP的三次握手及四次挥手)
+20. [为什么TCP连接的时候是3次？两次是否可以？](computer-network/computer-network.md#20为什么TCP连接的时候是3次两次是否可以)
+21. [为什么TCP关闭的时候是4次？](computer-network/computer-network.md#21为什么TCP关闭的时候是4次)
+22. [TIME_WAIT和CLOSE_WAIT的区别在哪?](computer-network/computer-network.md#22TIME_WAIT和CLOSE_WAIT的区别在哪)
+23. [HTTP 与 HTTPS 的区别](computer-network/computer-network.md#23HTTP-与-HTTPS-的区别)
+24. [什么是对称加密与非对称加密](computer-network/computer-network.md#24什么是对称加密与非对称加密)
+25. [HTTPS的加密过程](computer-network/computer-network.md#25HTTPS的加密过程)
+26. [常用HTTP状态码](computer-network/computer-network.md#26常用HTTP状态码)
+27. [GET和POST区别](computer-network/computer-network.md#27GET和POST区别)
+28. [get请求的 url 地址最多多长](computer-network/computer-network.md#28get请求的-url-地址最多多长)
+29. [Session、Cookie和Token的主要区别](computer-network/computer-network.md#29SessionCookie和Token的主要区别)
+30. [如果客户端禁止 cookie 能实现 session 还能用吗？](computer-network/computer-network.md#30如果客户端禁止-cookie-能实现-session-还能用吗)
+31. [在浏览器中输⼊url地址到显示主⻚的过程](computer-network/computer-network.md#31在浏览器中输入-url-地址到显示主页的过程)
+32. [端口的范围是根据什么呢？一定是16bit的范围吗？](computer-network/computer-network.md#32端口的范围是根据什么呢一定是16bit的范围吗)
+33. [什么是TCP粘包？怎么解决这个问题](computer-network/computer-network.md#33什么是TCP粘包怎么解决这个问题)
+34. [什么是DoS、DDoS、DRDoS攻击？](computer-network/computer-network.md#34什么是DoSDDoSDRDoS攻击)
+35. [域名的组成](computer-network/computer-network.md#35域名的组成)
+36. [cdn 是什么，动态 cdn 和静态 cdn 有什么区别](computer-network/computer-network.md#36cdn-是什么动态-cdn-和静态-cdn-有什么区别)
+37. [子网掩码是什么](computer-network/computer-network.md#37子网掩码是什么)
+38. [http 大文件断点续传过程](computer-network/computer-network.md#38http-大文件断点续传过程)
+39. [轮询、长轮询有什么区别，http 2.0是全双工的吗](computer-network/computer-network.md#39轮询长轮询有什么区别http-20是全双工的吗)
+40. [QUIC 协议是什么，怎么实现的](computer-network/computer-network.md#40QUIC-协议是什么怎么实现的)
+41. [SSL 单向认证和双向认证说明](computer-network/computer-network.md#41SSL-单向认证和双向认证说明)
 
 
