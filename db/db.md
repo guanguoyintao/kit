@@ -663,10 +663,13 @@ Saga是一种长流程事务解决方案，其核心思想是将一个大的分�
 这是关系型数据库的最基本要求。它规定字段不能是数组、列表或任何形式的集合。
 
 *   **不符合1NF**:
+
     | 员工ID | 技能 |
     | :--- | :--- |
     | E1 | Java, Python |
+
 *   **符合1NF**:
+
     | 员工ID | 技能 |
     | :--- | :--- |
     | E1 | Java |
@@ -680,10 +683,12 @@ Saga是一种长流程事务解决方案，其核心思想是将一个大的分�
 
 *   **不符合2NF**:
     假设表 `(员工ID, 项目ID)` 是主键。
+
     | 员工ID | 项目ID | 员工姓名 | 项目地点 |
     | :--- | :--- | :--- | :--- |
     | E1 | P1 | 张三 | 北京 |
     | E1 | P2 | 张三 | 上海 |
+
     *   `员工姓名` 只依赖于 `员工ID` (部分依赖)。
     *   `项目地点` 只依赖于 `项目ID` (部分依赖)。
 *   **符合2NF (拆分后)**:
@@ -698,10 +703,12 @@ Saga是一种长流程事务解决方案，其核心思想是将一个大的分�
 这意味着，任何非主属性都不能依赖于其他非主属性。所有非主属性必须且只直接依赖于主键。
 
 *   **不符合3NF**:
+
     | 员工ID (主键) | 部门名称 | 部门负责人 |
     | :--- | :--- | :--- |
     | E1 | 研发部 | 李四 |
     | E2 | 研发部 | 李四 |
+
     *   存在传递依赖: `员工ID -> 部门名称 -> 部门负责人`。
 *   **符合3NF (拆分后)**:
     **员工表**: `(员工ID, 部门名称)`
@@ -717,8 +724,10 @@ BCNF是3NF的加强版，通常被称为3.5NF。
 
 *   **符合3NF但不符合BCNF**:
     假设一个学生可以选择多门课，一个老师只教一门课，一门课可以有多个老师。
+
     | 学生 | 课程 | 老师 |
     | :--- | :--- | :--- |
+
     *   候选键1: `(学生, 课程)`
     *   候选键2: `(学生, 老师)`
     *   存在函数依赖: `老师 -> 课程`。
@@ -737,21 +746,30 @@ BCNF是3NF的加强版，通常被称为3.5NF。
 
 *   **不符合4NF**:
     假设一个员工可以掌握多种技能，也可以负责多个项目。技能和项目之间没有直接关系。
+
     | 员工ID | 技能 | 项目ID |
     | :--- | :--- | :--- |
     | E1 | Java | P1 |
     | E1 | Java | P2 |
     | E1 | Python | P1 |
     | E1 | Python | P2 |
+
     *   为了表示E1会Java和Python，且负责P1和P2，我们被迫创建了 `2 * 2 = 4` 行数据，产生了大量冗余。
     *   这里存在两个多值依赖: `员工ID ->> 技能` 和 `员工ID ->> 项目ID`。
 *   **符合4NF (拆分后)**:
     **员工技能表**: `(员工ID, 技能)`
+
+    | 员工ID | 技能 |
+    | :--- | :--- |
     | E1 | Java |
     | E1 | Python |
+
     **员工项目表**: `(员工ID, 项目ID)`
-    | E1 | P1 |
-    | E1 | P2 |
+
+    | 员工ID | 项目ID |
+    | :--- |:-----|
+    | E1 | P1   |
+    | E1 | P2   |
 
 ### 第五范式 (5NF) & 投影连接范式 (PJ/NF)
 
@@ -763,6 +781,7 @@ BCNF是3NF的加强版，通常被称为3.5NF。
 
 *   **不符合5NF**:
     假设有供应商、商品、项目三者之间的关系。规则是：如果供应商S为项目P提供商品G，并且供应商S也为项目Q提供商品G，同时供应商T也为项目P提供商品G，那么供应商T**必须**也为项目Q提供商品G。
+
     | 供应商 | 商品 | 项目 |
     | :--- | :--- | :--- |
     | S | G | P |
@@ -3875,6 +3894,7 @@ DEALLOCATE employee_cursor;
 **示例数据:**
 
 **`Customers` 表**
+
 | customer_id | name |
 | :--- | :--- |
 | 1 | Alice |
@@ -3882,6 +3902,7 @@ DEALLOCATE employee_cursor;
 | 3 | Charlie |
 
 **`Orders` 表**
+
 | order_id | customer_id | product |
 | :--- | :--- | :--- |
 | 101 | 1 | Book |
@@ -3890,8 +3911,6 @@ DEALLOCATE employee_cursor;
 | 104 | 4 | Eraser |
 
 注意：客户 Charlie 没有任何订单，而订单 104 对应一个不存在的客户（这在有外键约束的数据库中通常不会发生，但很适合用来解释外连接）。
-
----
 
 ### 六种核心关联查询
 
@@ -3933,12 +3952,14 @@ DEALLOCATE employee_cursor;
     LEFT JOIN Orders o ON c.customer_id = o.customer_id;
     ```
 *   **结果**：
+* 
     | name | product |
     | :--- | :--- |
     | Alice | Book |
     | Bob | Pen |
     | Bob | Paper |
     | Charlie | `NULL` |
+
     (所有客户都被列出，即使 Charlie 没有订单)
 
 #### 3. 右外连接 (RIGHT OUTER JOIN 或 RIGHT JOIN)
@@ -3954,12 +3975,14 @@ DEALLOCATE employee_cursor;
     RIGHT JOIN Orders o ON c.customer_id = o.customer_id;
     ```
 *   **结果**：
+* 
     | name | product |
     | :--- | :--- |
     | Alice | Book |
     | Bob | Pen |
     | Bob | Paper |
     | `NULL` | Eraser |
+
     (所有订单都被列出，即使订单 104 找不到对应的客户)
 
 #### 4. 全外连接 (FULL OUTER JOIN)
@@ -3977,6 +4000,7 @@ DEALLOCATE employee_cursor;
     FULL OUTER JOIN Orders o ON c.customer_id = o.customer_id;
     ```
 *   **结果**：
+
     | name | product |
     | :--- | :--- |
     | Alice | Book |
@@ -3984,6 +4008,7 @@ DEALLOCATE employee_cursor;
     | Bob | Paper |
     | Charlie | `NULL` |
     | `NULL` | Eraser |
+
     (包含了没有订单的客户 Charlie，和没有客户的订单 Eraser)
 
 #### 5. 左排除连接 (LEFT EXCLUDING JOIN)
@@ -4001,9 +4026,11 @@ DEALLOCATE employee_cursor;
     WHERE o.customer_id IS NULL;
     ```
 *   **结果**：
+
     | name |
     | :--- |
     | Charlie |
+
     (只有 Charlie 从未下过单)
 
 #### 6. 右排除连接 (RIGHT EXCLUDING JOIN)
@@ -4021,9 +4048,11 @@ DEALLOCATE employee_cursor;
     WHERE c.customer_id IS NULL;
     ```
 *   **结果**：
+
     | product |
     | :--- |
     | Eraser |
+
     (只有订单 Eraser 找不到对应的客户)
 
 ### 总结

@@ -6,49 +6,37 @@ import (
 )
 
 func main() {
+	// 使用 WaitGroup 等待两个协程执行完毕
 	var wg sync.WaitGroup
 	wg.Add(2)
 
-	var mu sync.Mutex
-	cond := sync.NewCond(&mu)
-	// turn 用来标记当前应该由哪个协程执行
-	turn := 1
+	// 创建一个无缓冲的通道用于同步
+	ch := make(chan struct{})
 
-	// 协程一
+	// 协程一：打印奇数
 	go func() {
 		defer wg.Done()
 		for i := 1; i <= 9; i += 2 {
-			mu.Lock()
-			// 如果不是自己的回合，就等待
-			for turn != 1 {
-				cond.Wait()
-			}
 			fmt.Println("协程一:", i)
-			// 切换回合
-			turn = 2
-			// 唤醒可能在等待的另一个协程
-			cond.Signal()
-			mu.Unlock()
+			// 发送信号，通知协程二可以打印了
+			ch <- struct{}{}
+			// 等待协程二的信号
+			<-ch
 		}
 	}()
 
-	// 协程二
+	// 协程二：打印偶数
 	go func() {
 		defer wg.Done()
 		for i := 2; i <= 10; i += 2 {
-			mu.Lock()
-			// 如果不是自己的回合，就等待
-			for turn != 2 {
-				cond.Wait()
-			}
+			// 等待协程一的信号
+			<-ch
 			fmt.Println("协程二:", i)
-			// 切换回合
-			turn = 1
-			// 唤醒可能在等待的另一个协程
-			cond.Signal()
-			mu.Unlock()
+			// 发送信号，通知协程一可以打印了
+			ch <- struct{}{}
 		}
 	}()
 
+	// 等待所有协程执行结束
 	wg.Wait()
 }
