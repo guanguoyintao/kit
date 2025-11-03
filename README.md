@@ -2,8 +2,6 @@
 
 ---
 
-## 常见问题
-
 1. [计算机网络的各层协议及作用](computer-network/computer-network.md#1计算机网络的各层协议及作用)
 2. [URI和URL的区别](computer-network/computer-network.md#2URI和URL的区别)
 3. [DNS的工作流程](computer-network/computer-network.md#3DNS的工作流程)
@@ -51,8 +49,6 @@
 
 ---
 
-## 常见问题
-
 1. [什么是虚拟内存](os/os.md#1什么是虚拟内存)
 2. [什么是 epoll](os/os.md#2什么是-epoll)
 3. [什么是写时复制 (Copy-on-Write, COW）](os/os.md#3什么是写时复制-copy-on-write-cow)
@@ -96,11 +92,11 @@
 3. [什么是函数编程，函数式变成常见算子有哪些](design/design.md#3什么是函数编程函数式变成常见算子有哪些)
 
 
-# golang
+# 语言
 
 ---
 
-## 常见问题
+## golang
 
 1. [`golang` 中 `make` 和 `new` 的区别？](golang/golang.md#1golang-中-make-和-new-的区别)
 2. [数组和切片的区别](golang/golang.md#2数组和切片的区别)
@@ -136,9 +132,26 @@
 32. [`value context` 怎么进行存储的](golang/golang.md#32value-context-怎么进行存储的)
 33. [字符串怎么进行高效拼接](golang/golang.md#33字符串怎么进行高效拼接)
 
+## python
+
+1. [常见魔术方法](python/python.md#1常见魔术方法)
+2. [python 的装饰器怎么实现](python/python.md#2python-的装饰器怎么实现)
+3. [Python中类方法、类实例方法、静态方法有何区别？](python/python.md#3Python中类方法类实例方法静态方法有何区别)
+4. [遍历一个object的所有属性，并print每一个属性名？](python/python.md#4遍历一个object的所有属性并print每一个属性名)
+5. [写一个类，并让它尽可能多的支持操作符?](python/python.md#5写一个类并让它尽可能多的支持操作符)
+6. [介绍Cython，Pypy Cpython Numba各有什么缺点](python/python.md#6介绍CythonPypy-Cpython-Numba各有什么缺点)
+7. [什么是元类](python/python.md#7什么是元类)
+8. [Python的内存管理机制及调优手段？](python/python.md#8Python的内存管理机制及调优手段)
+9. [python函数重载机制？](python/python.md#9python函数重载机制)
+10. [什么是lambda函数？ 有什么好处？](python/python.md#10什么是lambda函数有什么好处)
+11. [生成器和迭代器区别](python/python.md#11生成器和迭代器区别)
+12. [python 的GIL全局锁是什么](python/python.md#12python-的GIL全局锁是什么)
+13. [什么是 WSGI、uWSGI、ASGI](python/python.md#13什么是-WSGIuWSGIASGI)
+
+
 # 数据库
 
-## 常见问题
+---
 
 1. [InnoDB引擎索引的数据结构](db/db.md#1InnoDB引擎索引的数据结构)
 2. [什么是回表](db/db.md#2什么是回表)
@@ -204,8 +217,6 @@
 # redis
 
 ---
-
-## 常见问题
 
 1. [Redis数据类型以及使用场景分别是什么？](redis/redis.md#1Redis-数据类型以及使用场景分别是什么)
 2. [常见的 Redis 数据类型是怎么实现？](redis/redis.md#2常见的-Redis-数据类型是怎么实现)
