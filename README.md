@@ -44,6 +44,8 @@
 40. [QUIC 协议是什么，怎么实现的](computer-network/computer-network.md#40QUIC-协议是什么怎么实现的)
 41. [SSL 单向认证和双向认证说明](computer-network/computer-network.md#41SSL-单向认证和双向认证说明)
 42. [tcp都有哪些状态](computer-network/computer-network.md#42tcp-都有哪些状态)
+43. [tcp 连接怎么优化高并发](computer-network/computer-network.md#43tcp-连接怎么优化高并发)
+44. [常见的网络攻击](computer-network/computer-network.md#44常见的网络攻击)
 
 # 操作系统
 
