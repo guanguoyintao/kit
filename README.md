@@ -46,6 +46,7 @@
 42. [tcp都有哪些状态](computer-network/computer-network.md#42tcp-都有哪些状态)
 43. [tcp 连接怎么优化高并发](computer-network/computer-network.md#43tcp-连接怎么优化高并发)
 44. [常见的网络攻击](computer-network/computer-network.md#44常见的网络攻击)
+45. [局域网私有地址是什么？](computer-network/computer-network.md#46局域网私有地址是什么)
 
 # 操作系统
 
@@ -249,3 +250,4 @@
 24. [Redis 事务支持回滚吗？](redis/redis.md#24Redis-事务支持回滚吗)
 25. [什么是延迟双删](redis/redis.md#25什么是延迟双删)
 26. [如何设计如何Lease缓存一致性方案](redis/redis.md#26如何设计如何Lease缓存一致性方案)
+27. [redis zset 的算法复杂度问题](redis/redis.md#27redis-zset-的算法复杂度问题)
