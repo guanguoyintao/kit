@@ -244,3 +244,5 @@
 22. [Redis 的大 key 如何处理？](redis/redis.md#22Redis-的大-key-如何处理)
 23. [Redis 管道有什么用？](redis/redis.md#23Redis-管道有什么用)
 24. [Redis 事务支持回滚吗？](redis/redis.md#24Redis-事务支持回滚吗)
+25. [什么是延迟双删](redis/redis.md#25什么是延迟双删)
+26. [如何设计如何Lease缓存一致性方案](redis/redis.md#26如何设计如何Lease缓存一致性方案)
