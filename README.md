@@ -158,6 +158,8 @@
 
 ---
 
+## mysql
+
 1. [InnoDB引擎索引的数据结构](db/db.md#1InnoDB引擎索引的数据结构)
 2. [什么是回表](db/db.md#2什么是回表)
 3. [数据库为什么使用B+树而不是B树？](db/db.md#3数据库为什么使用B树而不是B树)
@@ -219,9 +221,7 @@
 59. [utf8和utf8mb4区别](db/db.md#59utf8和utf8mb4区别)
 60. [Mysql一条SQL加锁分析](db/db.md#60Mysql一条SQL加锁分析)
 
-# redis
-
----
+## redis
 
 1. [Redis数据类型以及使用场景分别是什么？](redis/redis.md#1Redis-数据类型以及使用场景分别是什么)
 2. [常见的 Redis 数据类型是怎么实现？](redis/redis.md#2常见的-Redis-数据类型是怎么实现)
