@@ -133,6 +133,7 @@
 31. [`Channel` 分配在栈上还是堆上？哪些对象分配在堆上，哪些对象分配在栈上？](golang/golang.md#31Channel-分配在栈上还是堆上哪些对象分配在堆上哪些对象分配在栈上)
 32. [`value context` 怎么进行存储的](golang/golang.md#32value-context-怎么进行存储的)
 33. [字符串怎么进行高效拼接](golang/golang.md#33字符串怎么进行高效拼接)
+34. [golang 中内存分配规格是什么](golang/golang.md#34golang-中内存分配规格是什么)
 
 ## python
 
