@@ -134,6 +134,8 @@
 32. [`value context` 怎么进行存储的](golang/golang.md#32value-context-怎么进行存储的)
 33. [字符串怎么进行高效拼接](golang/golang.md#33字符串怎么进行高效拼接)
 34. [golang 中内存分配规格是什么](golang/golang.md#34golang-中内存分配规格是什么)
+35. [sync.Map 怎么实现的](golang/golang.md#35syncmap怎么实现的)
+36. [怎么设计一个读多写多的并发安全的高性能 map ](golang/golang.md#36怎么设计一个读多写多的并发安全的高性能-map)
 
 ## python
 
